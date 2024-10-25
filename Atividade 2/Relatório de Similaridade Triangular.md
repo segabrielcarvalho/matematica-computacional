@@ -1,83 +1,62 @@
-# Relatório: Implementação de Semelhança de Triângulos em Python
+# Relatório: Implementação de Bissetrizes em Triângulos com TypeScript
 
 ## Introdução
 
-Este relatório descreve a implementação de um programa em Python que verifica a semelhança entre dois triângulos com base nos critérios: **LAL (Lado-Ângulo-Lado)**, **AA (Ângulo-Ângulo)** e **LLL (Lado-Lado-Lado)**. O objetivo é aplicar conceitos de geometria e programação para determinar se dois triângulos são semelhantes.
+Este relatório descreve a implementação de um programa em TypeScript que calcula as propriedades das bissetrizes interna e externa de um triângulo. O objetivo é explorar os conceitos e propriedades das bissetrizes, aplicando lógica matemática e programação para determinar as divisões dos lados do triângulo feitas pelas bissetrizes.
 
-## Critérios de Semelhança
+## Bissetrizes Interna e Externa
 
-- **LAL**: Dois lados proporcionales e ângulo entre eles congruente.
-- **AA**: Dois ângulos congruentes.
-- **LLL**: Todos os três lados proporcionais.
+- **Bissetriz Interna**: Divide o ângulo interno de um triângulo em duas partes iguais e intercepta o lado oposto, formando segmentos proporcionais.
+- **Bissetriz Externa**: Divide o ângulo externo de um triângulo em duas partes iguais e intercepta o prolongamento do lado oposto, formando uma divisão específica.
 
-## Implementação do Código em Python
+## Implementação do Código em TypeScript
 
-O programa recebe os valores dos lados e ângulos de dois triângulos e verifica a semelhança com base nos critérios mencionados. Exemplo do código:
+O programa recebe os valores dos lados do triângulo e calcula as propriedades das bissetrizes interna e externa com base nas fórmulas matemáticas. Exemplo do código:
 
-```python
-# Função para verificar semelhança pelo critério LAL
-def eh_semeLAL(lados1, lados2, angulo1, angulo2):
-    proporcao_lados = (lados1[0] / lados2[0]) == (lados1[1] / lados2[1])
-    angulos_congruentes = angulo1 == angulo2
-    return proporcao_lados and angulos_congruentes
+```typescript
+function bissetrizInterna(a: number, b: number, c: number): number {
+  /**
+   * Calcula a razão das partes formadas pela bissetriz interna no lado oposto.
+   * @param a Lado A do triângulo
+   * @param b Lado B do triângulo
+   * @param c Lado C do triângulo (lado oposto à bissetriz)
+   * @return Razão das partes formadas pela bissetriz interna
+   */
+  const razao = b / a;
+  return razao;
+}
 
-# Função para verificar semelhança pelo critério AA
-def eh_semeAA(angulos1, angulos2):
-    return angulos1[0] == angulos2[0] and angulos1[1] == angulos2[1]
-
-# Função para verificar semelhança pelo critério LLL
-def eh_semeLLL(lados1, lados2):
-    return (lados1[0] / lados2[0] == lados1[1] / lados2[1] == lados1[2] / lados2[2])
-
-# Função principal para verificar semelhança
-def verifica_semelhanca():
-    tipo = input("Informe o tipo de critério de semelhança (LAL, AA, LLL): ").strip().upper()
-
-    if tipo == "LAL":
-        lados1 = list(map(float, input("Informe os dois lados do primeiro triângulo: ").split()))
-        lados2 = list(map(float, input("Informe os dois lados do segundo triângulo: ").split()))
-        angulo1 = float(input("Informe o ângulo do primeiro triângulo: "))
-        angulo2 = float(input("Informe o ângulo do segundo triângulo: "))
-        if eh_semeLAL(lados1, lados2, angulo1, angulo2):
-            print("Os triângulos são semelhantes pelo critério LAL.")
-        else:
-            print("Os triângulos não são semelhantes pelo critério LAL.")
-
-    elif tipo == "AA":
-        angulos1 = list(map(float, input("Informe dois ângulos do primeiro triângulo: ").split()))
-        angulos2 = list(map(float, input("Informe dois ângulos do segundo triângulo: ").split()))
-        if eh_semeAA(angulos1, angulos2):
-            print("Os triângulos são semelhantes pelo critério AA.")
-        else:
-            print("Os triângulos não são semelhantes pelo critério AA.")
-
-    elif tipo == "LLL":
-        lados1 = list(map(float, input("Informe os três lados do primeiro triângulo: ").split()))
-        lados2 = list(map(float, input("Informe os três lados do segundo triângulo: ").split()))
-        if eh_semeLLL(lados1, lados2):
-            print("Os triângulos são semelhantes pelo critério LLL.")
-        else:
-            print("Os triângulos não são semelhantes pelo critério LLL.")
-
-    else:
-        print("Critério inválido. Por favor, informe LAL, AA ou LLL.")
-
-# Chamada da função principal
-verifica_semelhanca()
+function bissetrizExterna(a: number, b: number, c: number): string | number {
+  /**
+   * Calcula a divisão do lado oposto pela bissetriz externa.
+   * @param a Lado A do triângulo
+   * @param b Lado B do triângulo
+   * @param c Lado C do triângulo (lado oposto à bissetriz externa)
+   * @return Divisão do lado oposto pela bissetriz externa
+   */
+  if (c === 0) {
+    return "Divisão por zero não é possível. Verifique os lados do triângulo.";
+  }
+  const divisao = (a + b) / c;
+  return divisao;
+}
 ```
 
 ## Explicação do Algoritmo
 
-1. **Entrada de Dados**: Solicita ao usuário os valores dos lados e ângulos dos triângulos.
-2. **Verificação dos Critérios**: Verifica os critérios LAL, AA ou LLL usando funções específicas.
-3. **Resultado**: Informa se os triângulos são semelhantes com base no critério escolhido.
+1. **Entrada de Dados**: Solicita ao usuário os valores dos lados do triângulo.
+2. **Cálculo da Bissetriz Interna**: Utiliza a função `bissetrizInterna` para calcular a razão das partes formadas pela bissetriz interna no lado oposto.
+3. **Cálculo da Bissetriz Externa**: Utiliza a função `bissetrizExterna` para determinar a divisão do lado oposto pela bissetriz externa.
+4. **Tratamento de Erros**: Verifica possíveis divisões por zero, garantindo que os valores fornecidos sejam válidos.
 
 ## Representação no GeoGebra
 
-1. **Construção dos Triângulos**: Criar segmentos e pontos no GeoGebra.
-2. **Medidas dos Ângulos e Lados**: Medir ângulos e lados para justificar a semelhança.
-3. **Captura de Tela**: Capturar a construção para justificar visualmente a semelhança.
+1. **Construção do Triângulo**: Criar um triângulo no GeoGebra utilizando a ferramenta de polígono.
+2. **Desenho das Bissetrizes**: Utilizar as ferramentas de bissetriz para desenhar as bissetrizes interna e externa dos ângulos do triângulo.
+3. **Visualização da Proporção**: Medir os segmentos do lado oposto para verificar a divisão realizada pelas bissetrizes.
+4. **Captura de Tela**: Capturar a construção para justificar visualmente as divisões e proporções dos lados.
 
 ## Conclusão
 
-Este exercício aplicou conceitos de geometria e programação para verificar a semelhança de triângulos. A implementação dos critérios de semelhança e a representação visual no GeoGebra ajudaram a validar a lógica dos algoritmos e visualizar os conceitos teóricos.
+Este exercício aplicou conceitos de geometria e programação para calcular e visualizar as propriedades das bissetrizes interna e externa de um triângulo. A implementação das funções em TypeScript, junto com a representação gráfica no GeoGebra, permitiu validar as relações matemáticas e demonstrar visualmente os conceitos teóricos.
+
